@@ -1,0 +1,11 @@
+
+.emd-pwc-admin-wrap .emd-pwc-shortcode-row {
+  display: flex; gap: 8px; align-items: center; margin: 10px 0 14px;
+}
+.emd-pwc-admin-wrap .emd-pwc-shortcode-input {
+  max-width: 260px; text-align: center; font-weight: 600;
+}
+.emd-pwc-admin-wrap .emd-pwc-copied {
+  margin-left: 6px; color: #008a00; font-weight: 600;
+}
+.emd-pwc-preview { margin-top: 10px; }
