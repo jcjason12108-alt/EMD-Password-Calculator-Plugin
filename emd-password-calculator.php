@@ -3,7 +3,7 @@
  * Plugin Name: EMD Password Calculator
  * Plugin URI: https://github.com/jcjason12108-alt/EMD-Password-Calculator-Plugin/
  * Description: Displays today’s and yesterday’s EMD password (UTC). Includes an accessible calculation breakdown.
- * Version: 2.2.4
+ * Version: 2.2.5
  * Requires at least: 5.2
  * Tested up to: 6.9.4
  * Requires PHP: 7.4
@@ -16,7 +16,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'EMD_PWC_VERSION', '2.2.4' );
+define( 'EMD_PWC_VERSION', '2.2.5' );
 define( 'EMD_PWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'EMD_PWC_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -36,9 +36,15 @@ add_filter(
     }
 );
 
-$emd_pwc_github_token = defined( 'PLUGIN_UPDATE_GITHUB_TOKEN' )
-    ? PLUGIN_UPDATE_GITHUB_TOKEN
-    : getenv( 'PLUGIN_UPDATE_GITHUB_TOKEN' );
+$emd_pwc_github_token = '';
+
+if ( defined( 'EMD_PWC_GITHUB_TOKEN' ) ) {
+    $emd_pwc_github_token = EMD_PWC_GITHUB_TOKEN;
+} elseif ( defined( 'PLUGIN_UPDATE_GITHUB_TOKEN' ) ) {
+    $emd_pwc_github_token = PLUGIN_UPDATE_GITHUB_TOKEN;
+} else {
+    $emd_pwc_github_token = getenv( 'EMD_PWC_GITHUB_TOKEN' ) ?: getenv( 'PLUGIN_UPDATE_GITHUB_TOKEN' );
+}
 
 if ( ! empty( $emd_pwc_github_token ) ) {
     $emd_pwc_update_checker->setAuthentication( $emd_pwc_github_token );
@@ -168,7 +174,9 @@ add_action('admin_menu', 'emd_pwc_admin_menu');
  * Enqueue admin assets only on our settings page.
  */
 function emd_pwc_admin_enqueue($hook_suffix) {
-    if ( isset($_GET['page']) && $_GET['page'] === 'emd-password-calculator' ) {
+    $page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+    if ( 'emd-password-calculator' === $page ) {
         wp_enqueue_style('emd-pwc-admin', EMD_PWC_URL . 'assets/css/emd-pwc-admin.css', array(), EMD_PWC_VERSION);
         wp_enqueue_script('emd-pwc-admin', EMD_PWC_URL . 'assets/js/emd-pwc-admin.js', array(), EMD_PWC_VERSION, true);
     }

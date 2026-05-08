@@ -30,6 +30,18 @@
     };
   }
 
+  function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g, function(ch){
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      }[ch];
+    });
+  }
+
   
 function renderCalc(el, data){
   // Build digits arrays
@@ -56,13 +68,13 @@ function renderCalc(el, data){
   // Password is still lastDigit(sum) + lastDigit(year) + reversed(day)
   el.innerHTML = `
     <div class="emd-lines">
-      <div class="emd-line"><strong>${EMD_PWC_I18N.example}:</strong></div>
-      <div class="emd-line">${EMD_PWC_I18N.todaysDate} ${data.m}/${data.d}/${data.y}</div>
+      <div class="emd-line"><strong>${escapeHtml(EMD_PWC_I18N.example)}:</strong></div>
+      <div class="emd-line">${escapeHtml(EMD_PWC_I18N.todaysDate)} ${data.m}/${data.d}/${data.y}</div>
       <div class="emd-line">${coloredLeft} = ${coloredRight}</div>
-      <div class="emd-line">${EMD_PWC_I18N.writeDown}:</div>
+      <div class="emd-line">${escapeHtml(EMD_PWC_I18N.writeDown)}:</div>
       <div class="emd-line emd-red-seq"><span class="emd-red">${data.lastDigit}</span><span class="emd-red">${data.lastDigitYear}</span><span class="emd-red">${data.dayReversed}</span></div>
-      <div class="emd-line"><strong>${EMD_PWC_I18N.passwordEq} = ${data.password}</strong></div>
-      <div class="emd-line emd-legend">(${EMD_PWC_I18N.legend})</div>
+      <div class="emd-line"><strong>${escapeHtml(EMD_PWC_I18N.passwordEq)} = ${data.password}</strong></div>
+      <div class="emd-line emd-legend">(${escapeHtml(EMD_PWC_I18N.legend)})</div>
     </div>
   `;
 }

@@ -3,7 +3,7 @@ Contributors: jasoncox
 Requires at least: 5.2
 Tested up to: 6.9.4
 Requires PHP: 7.4
-Stable tag: 2.2.4
+Stable tag: 2.2.5
 License: GPLv2 or later
 
 Displays today’s and yesterday’s EMD password based on lodge rules (UTC).
@@ -18,6 +18,9 @@ Use the shortcode `[emd_password_calc]` to render the calculator (UTC). It compu
 Password format: `<last digit of digit sum> <last digit of year> <day reversed>`.
 
 == Changelog ==
+= 2.2.5 =
+* Test release for GitHub update checks.
+
 = 2.2.4 =
 * Added GitHub automatic updates using Plugin Update Checker.
 * Updated WordPress compatibility to 6.9.4.
