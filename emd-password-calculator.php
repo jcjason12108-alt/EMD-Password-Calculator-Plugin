@@ -5,7 +5,7 @@
  * Description: Displays today’s and yesterday’s EMD password (UTC). Includes an accessible calculation breakdown.
  * Version: 2.2.5
  * Requires at least: 5.2
- * Tested up to: 6.9.4
+ * Tested up to: 7.0
  * Requires PHP: 7.4
  * Author: Jason Cox
  * Author URI: https://iamll706.org
@@ -174,9 +174,7 @@ add_action('admin_menu', 'emd_pwc_admin_menu');
  * Enqueue admin assets only on our settings page.
  */
 function emd_pwc_admin_enqueue($hook_suffix) {
-    $page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
-
-    if ( 'emd-password-calculator' === $page ) {
+    if ( 'settings_page_emd-password-calculator' === $hook_suffix && current_user_can( 'manage_options' ) ) {
         wp_enqueue_style('emd-pwc-admin', EMD_PWC_URL . 'assets/css/emd-pwc-admin.css', array(), EMD_PWC_VERSION);
         wp_enqueue_script('emd-pwc-admin', EMD_PWC_URL . 'assets/js/emd-pwc-admin.js', array(), EMD_PWC_VERSION, true);
     }
@@ -194,7 +192,7 @@ function emd_pwc_admin_page_render() {
         <p class="description"><?php echo esc_html__( 'Use this shortcode anywhere:', 'emd-password-calculator' ); ?></p>
 
         <div class="emd-pwc-shortcode-row">
-            <input type="text" class="regular-text code emd-pwc-shortcode-input" readonly value="[emd_password_calc]" />
+            <input type="text" class="regular-text code emd-pwc-shortcode-input" readonly value="<?php echo esc_attr( '[emd_password_calc]' ); ?>" />
             <button type="button" class="button button-primary emd-pwc-copy"><?php echo esc_html__( 'Copy', 'emd-password-calculator' ); ?></button>
             <span class="emd-pwc-copied" aria-live="polite" hidden><?php echo esc_html__( 'Copied!', 'emd-password-calculator' ); ?></span>
         </div>
