@@ -3,7 +3,7 @@
  * Plugin Name: EMD Password Calculator
  * Plugin URI: https://github.com/jcjason12108-alt/EMD-Password-Calculator-Plugin/
  * Description: Displays today’s and yesterday’s EMD password (UTC). Includes an accessible calculation breakdown.
- * Version: 2.2.5
+ * Version: 2.2.6
  * Requires at least: 5.2
  * Tested up to: 7.0
  * Requires PHP: 7.4
@@ -16,7 +16,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'EMD_PWC_VERSION', '2.2.5' );
+define( 'EMD_PWC_VERSION', '2.2.6' );
 define( 'EMD_PWC_URL', plugin_dir_url( __FILE__ ) );
 define( 'EMD_PWC_PATH', plugin_dir_path( __FILE__ ) );
 
